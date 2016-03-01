@@ -1,0 +1,74 @@
+#include <iostream>
+using namespace std;
+void EnterArray(int a[], int n);
+void DisplayArray(int a[], int n);
+void Swap(int &a, int &b);
+void QuickSort(int a[], int l, int r);
+int EnterDimention(int n);
+int main()
+{
+	const int N = 100;
+	int n = EnterDimention(N);
+	int l = 0; int r = n - 1;
+	int *a = new int[n];
+	EnterArray(a, n);
+	QuickSort(a, l, r);
+	cout << "Sort Array" << endl;
+	DisplayArray(a, n);
+	system("pause");
+}
+void EnterArray(int a[], int n)
+{
+	cout << "Enter Elements" << endl;
+	for (int i = 0; i < n; i++)
+	{
+		cout << "a[" << (i + 1) << "]=";
+		cin >> a[i];
+	}
+
+}
+void DisplayArray(int a[], int n)
+{
+	for (int i = 0; i < n; i++)
+		cout << a[i] << " ";
+
+}
+int EnterDimention(int n)
+{
+	int k;
+	while (true)
+	{
+		cout << "Enter 0<=n<= " << n << ":" << endl;
+		cin >> k;
+		if (k>0 && k <= n)
+			return k;
+	}
+}
+void Swap(int &a, int &b)
+{
+	int temp;
+	temp = a;
+	a = b;
+	b = temp;
+}
+void QuickSort(int a[], int l, int r)
+{
+	int x = a[l + (r - l) / 2];
+	int i = l;
+	int j = r;
+	while (i <= j)
+	{
+		while (a[i] < x) i++;
+		while (a[j] > x) j--;
+		if (i <= j)
+		{
+			Swap(a[i], a[j]);
+			i++;
+			j--;
+		}
+	}
+	if (i<r)
+	QuickSort(a, i, r);
+	if (l<j)
+	QuickSort(a, l, j);
+}
