@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+void EnterArray(int a[], int n);
+void DisplayArray(int a[], int n);
+void Swap(int &a, int &b);
+int EnterDimention(int n);
+void Merge(int *a, int first, int last);
+void MergeSort(int *a, int first, int last);
+int main()
+{
+	const int N = 100;
+	int n = EnterDimention(N);
+	int *a = new int[n];
+	EnterArray(a, n);
+	MergeSort(a, 1, n);
+	cout << "Sort Array" << endl;
+	DisplayArray(a, n);
+	system("pause");
+}
+void EnterArray(int a[], int n)
+{
+	cout << "Enter Elements" << endl;
+	for (int i = 0; i < n; i++)
+	{
+		cout << "a[" << (i + 1) << "]=";
+		cin >> a[i];
+	}
+
+}
+void DisplayArray(int a[], int n)
+{
+	for (int i = 0; i < n; i++)
+		cout << a[i] << " ";
+
+}
+int EnterDimention(int n)
+{
+	int k;
+	while (true)
+	{
+		cout << "Enter 0<=n<= " << n << ":" << endl;
+		cin >> k;
+		if (k>0 && k <= n)
+			return k;
+	}
+}
+void Swap(int &a, int &b)
+{
+	int temp;
+	temp = a;
+	a = b;
+	b = temp;
+}
+void Merge(int *a, int first, int last)
+{
+	int middle, start, final, j;
+	int *mas = new int[100];
+	middle = (first + last) / 2; 
+	start = first; 
+	final = middle + 1; 
+	for (j = first; j <= last; j++) 
+		if ((start <= middle) && ((final>last) || (a[start]<a[final])))
+		{
+		mas[j] = a[start];
+		start++;
+		}
+		else
+		{
+			mas[j] = a[final];
+			final++;
+		}
+	
+	for (j = first; j <= last; j++) a[j] = mas[j];
+	delete[]mas;
+};
+
+void MergeSort(int *a, int first, int last)
+{
+	{
+		if (first<last)
+		{
+			MergeSort(a, first, (first + last) / 2); 
+			MergeSort(a, (first + last) / 2 + 1, last); 
+			Merge(a, first, last); 
+		}
+	}
+}
